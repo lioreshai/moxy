@@ -1,0 +1,4 @@
+RPi.GPIO
+smbus
+paho-mqtt
+asyncio

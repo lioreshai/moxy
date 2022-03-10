@@ -1,0 +1,32 @@
+- id: '1646773456960'
+  alias: Moxy Meter 1
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.moxy_1_current
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      topic: moxy/meters/1
+      payload: '{% set level = ([230,(states(''sensor.moxy_1_current'') | float /
+        5 | float * 230)| round | int] | min) %} {{ level }}:0
+
+        '
+  mode: single
+- id: '1646773456961'
+  alias: Moxy Meter 2
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.moxy_2_current
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      topic: moxy/meters/2
+      payload: '{% set level = ([230,(states(''sensor.moxy_2_current'') | float /
+        5 | float * 230)| round | int] | min) %} {{ level }}:0
+
+        '
+  mode: single

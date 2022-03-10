@@ -1,14 +1,15 @@
 # Moxy - Homelab IoT Platform
-![Physical panel meters and LCD/rotary encoder interface](./resources/panel.jpg)
-<sub><sup>*Front panel interface: PWM-controlled panel meters, LCD screen, and rotary encoder*</sup></sub>
-![Moxy Home Assistant Dashboard Screenshot](./resources/homeassistant-screenshot.png)
-<sub><sup>*Home Assistant interface: communication coordinated via MQTT*</sup></sub>
-
 ## Overview
 Moxy is a Homelab IoT "Platform" (for lack of a better term) that blurs the lines between hardware and software in the homelab. Here are the principal components of the platform:
 * Centralized server power management using relays and current sensors
 * Environmental sensors reporting real time metrics from the homelab
 * Physical "dashboard" to display guages using old-fashioned panel meters, backlit by neopixels for extra color indication
+---
+<sub><sup>*Front panel interface: PWM-controlled panel meters, LCD screen, and rotary encoder*</sup></sub>
+![Physical panel meters and LCD/rotary encoder interface](./resources/panel.jpg)
+<sub><sup>*Home Assistant interface: communication coordinated via MQTT*</sup></sub>
+![Moxy Home Assistant Dashboard Screenshot](./resources/homeassistant-screenshot.png)
+
 
 ## Prerequisites
 ### Server-side

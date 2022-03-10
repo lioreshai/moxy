@@ -13,20 +13,27 @@ import sys
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+
+#Physical relay GPIO pins (BCM)
 switchPins = [17,27,22,23]
+
 GPIO.setup(switchPins[0], GPIO.OUT)
 GPIO.setup(switchPins[1], GPIO.OUT)
 GPIO.setup(switchPins[2], GPIO.OUT)
 GPIO.setup(switchPins[3], GPIO.OUT)
 
+#Subscribe to power switch MQTT topic (from Home Assistant)
 def on_connect(client, flags, rc, properties):
     print('Relay service connected to MQTT for switch subscription')    
     sys.stdout.flush()
     client.subscribe("moxy/power/switch/+/set")
 
+#MQTT message callback
 def on_message(client, userdata, message):
+    #Get circuit ID from topic path
     circuitId = int(message.topic.split("/")[3])
     print(switchPins[circuitId-1])
+    #Set GPIO pin accordingly, and notify MQTT of change (for Home Assistant switch state)
     if message.payload == b'ON':
         GPIO.output(switchPins[circuitId-1],True)
         client.publish(f"moxy/power/switch/{circuitId}", "ON")
@@ -35,6 +42,7 @@ def on_message(client, userdata, message):
         GPIO.output(switchPins[circuitId-1],False)
         client.publish(f"moxy/power/switch/{circuitId}", "OFF")
 
+#Dedicated MQTT connection for receiving switching messages
 def run_subscription_mqtt():
     client = mqtt.Client()
     client.on_connect = on_connect
@@ -42,6 +50,7 @@ def run_subscription_mqtt():
     client.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']))
     client.loop_forever()
 
+#Deicated MQTT connection for sending liveness messages to Home Assistant
 def run_status_publish_mqtt():
     client = mqtt.Client()
     client.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']))

@@ -15,11 +15,13 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
+#Initialize smbus and define address of pico microcontroller
 bus= smbus.SMBus(1)
 picoADDR = 0x08
-
+#Initialize and define meterUpdate payload (updated via MQTT subscription and sent to MCU via i2c)
 meterUpdate = [0,0,0,0,0,0,0,0]
 
+#Physical I/O interface LCD screen + rotary encoder
 def run_interface():
     import driver_lcd
     mylcd = driver_lcd.lcd()
@@ -30,6 +32,7 @@ def run_interface():
         # print("* New value: {}, Direction: {}".format(value, direction))
     e1 = Encoder(5, 26, valueChanged)
 
+#Send updated meter state to pico MCU via i2c bus
 def update_meters():
     while True:
         # print("Writing update")
@@ -38,12 +41,15 @@ def update_meters():
         bus.write_i2c_block_data(picoADDR, 100, meterUpdate)
         time.sleep(1)
 
+#Subscribe to meter status updates from MQTT (published by Home Assistant)
 def on_connect(client, flags, rc, properties):
     print('Panel service connected to MQTT')    
     sys.stdout.flush()
     client.subscribe('moxy/meters/#')
 
+#Parse message from Home Assistant into meterUpdate format to be sent to pico MCU
 def on_message(client, userdata, message):
+    #Get meterId from topic path
     meterId = message.topic.split('/')[2]
     # print(message.payload)
     # sys.stdout.flush()
@@ -53,6 +59,7 @@ def on_message(client, userdata, message):
     meterUpdate[levelIndex] = int(payload[0])
     meterUpdate[hgIndex] = int(payload[1])
 
+#Run mqtt connection for receiving meter update messages
 def run_mqtt():
     client = mqtt.Client()
     client.on_connect = on_connect
@@ -63,6 +70,7 @@ def run_mqtt():
 async def main():
     print('Starting panel interface service.')    
     sys.stdout.flush()
+    #Run in 3 dedicated threads as each task is blocking
     loop.run_in_executor(p, run_mqtt)
     loop.run_in_executor(p, update_meters)
     loop.run_in_executor(p, run_interface)

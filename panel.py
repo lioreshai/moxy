@@ -1,3 +1,8 @@
+import os
+import configparser
+config = configparser.ConfigParser()
+config.read(os.path.dirname(os.path.realpath(__file__)) + '/config.ini')
+
 from concurrent.futures import ThreadPoolExecutor
 import time
 import smbus
@@ -51,7 +56,7 @@ def run_mqtt():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect('127.0.0.1')
+    client.connect(config['MQTT']['ServerHost'])
     client.loop_forever()
 
 async def main():

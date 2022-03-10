@@ -1,0 +1,11 @@
+[Unit]
+Description=Moxy Relay Switching Service
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+# Command to execute when the service is started
+ExecStart=/usr/bin/python /path/to/relays.py
+
+[Install]
+WantedBy=multi-user.target

@@ -1,12 +1,14 @@
+import os
+import configparser
+config = configparser.ConfigParser()
+config.read(os.path.dirname(os.path.realpath(__file__)) + '/config.ini')
 
 import smbus
 import time
-import json
 import paho.mqtt.client as mqtt
-import hid
 
 mqttc = mqtt.Client()
-mqttc.connect("127.0.0.1", 1883, 60)
+mqttc.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']), int(config['MQTT']['KeepAlive']))
 mqttc.loop_start()
 
 bus= smbus.SMBus(1)

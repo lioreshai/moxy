@@ -1,0 +1,11 @@
+[Unit]
+Description=Moxy Sensor Metrics Service
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+# Command to execute when the service is started
+ExecStart=/usr/bin/python /path/to/sensors.py
+
+[Install]
+WantedBy=multi-user.target

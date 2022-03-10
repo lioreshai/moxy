@@ -32,6 +32,11 @@ Moxy is a Homelab IoT "Platform" (for lack of a better term) that blurs the line
 * MQ2 gas sensor
 * Arduino-compatible microcontrollers
 
+<sub><sup>*10A Relay Modules on (left), 20A hall-effect current sensor modules (right), XT60 output connectors (top right)*</sup></sub>
+<br><br>
+![Moxy Home Assistant Dashboard Screenshot](./resources/homeassistant-screenshot.png)
+<br><br>
+
 ## Installing as a service
 A bash script is included to assist in creating services for server-side components in ````systemd````. See below for helpful commands on managing the services.
 

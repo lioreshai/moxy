@@ -1,3 +1,5 @@
+# Moxy - Homelab IoT Platform
+![Moxy Home Assistant Dashboard Screenshot](./homeassistant-screenshot.png)
 ## Prerequisites
 ### Server-side
 * MQTT

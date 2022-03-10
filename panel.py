@@ -39,13 +39,14 @@ def update_meters():
         time.sleep(1)
 
 def on_connect(client, flags, rc, properties):
-    print('Connected')
+    print('Panel service connected to MQTT')    
+    sys.stdout.flush()
     client.subscribe('pumanage/meters/#')
 
 def on_message(client, userdata, message):
     meterId = message.topic.split('/')[2]
     # print(message.payload)
-    sys.stdout.flush()
+    # sys.stdout.flush()
     payload = message.payload.decode("utf-8").split(':')
     levelIndex = (int(meterId)-1)*2
     hgIndex = levelIndex+1
@@ -56,10 +57,12 @@ def run_mqtt():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect(config['MQTT']['ServerHost'])
+    client.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']))
     client.loop_forever()
 
 async def main():
+    print('Starting panel interface service.')    
+    sys.stdout.flush()
     loop.run_in_executor(p, run_mqtt)
     loop.run_in_executor(p, update_meters)
     loop.run_in_executor(p, run_interface)

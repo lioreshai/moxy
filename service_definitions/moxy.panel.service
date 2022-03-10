@@ -5,7 +5,7 @@ Description=Moxy Panel Interface Service
 Restart=on-failure
 RestartSec=5s
 # Command to execute when the service is started
-ExecStart=/usr/bin/python /path/to/sensors.py
+ExecStart=/usr/bin/python /path/to/panel.py
 
 [Install]
 WantedBy=multi-user.target

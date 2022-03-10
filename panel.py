@@ -41,7 +41,7 @@ def update_meters():
 def on_connect(client, flags, rc, properties):
     print('Panel service connected to MQTT')    
     sys.stdout.flush()
-    client.subscribe('pumanage/meters/#')
+    client.subscribe('moxy/meters/#')
 
 def on_message(client, userdata, message):
     meterId = message.topic.split('/')[2]

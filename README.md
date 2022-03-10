@@ -34,7 +34,7 @@ Moxy is a Homelab IoT "Platform" (for lack of a better term) that blurs the line
 
 <sub><sup>*10A Relay Modules on (left), 20A hall-effect current sensor modules (right), XT60 output connectors (top right)*</sup></sub>
 <br><br>
-![Moxy Home Assistant Dashboard Screenshot](./resources/homeassistant-screenshot.png)
+![Moxy Home Assistant Dashboard Screenshot](./resources/power-components.jpg)
 <br><br>
 
 ## Installing as a service

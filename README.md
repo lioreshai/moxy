@@ -14,6 +14,11 @@ Moxy is a Homelab IoT "Platform" (for lack of a better term) that blurs the line
 ![Moxy Home Assistant Dashboard Screenshot](./resources/homeassistant-screenshot.png)
 <br><br>
 
+## Hardware Schematic
+
+![Moxy schematic](./resources/schematic.png)
+
+
 ## Prerequisites
 ### Server-side
 * MQTT

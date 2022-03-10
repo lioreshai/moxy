@@ -1,12 +1,23 @@
-
 ## Prerequisites
+### Server-side
 * MQTT
 * Python 3
 * I2C - to connect to microcontrollers and ADCs for sensors, analog meters (pwm), and LCD screen
 * GPIO - for controlling relays and rotary encoder input
+* Home Assistant
+
+### Device-side
+* 5 ADC pins
+* 4 PWM pins
+* 16x2 I2C LCD Screen
+* 4x 30V 10A relays w/ optocouplers
+* 4x ACS712 Hall-effect current sensors
+* DHT11 temperature + humidity sensor
+* MQ2 gas sensor
+* Arduino-compatible microcontrollers
 
 ## Installing as a service
-A bash script is included to assist in creating services in ````systemd````. See below for helpful commands on managing the services.
+A bash script is included to assist in creating services for server-side components in ````systemd````. See below for helpful commands on managing the services.
 
 ### Linux installation
 1. Modify service definitions in ````service_definitions```` directory to reflect the location of the Python executables

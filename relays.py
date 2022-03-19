@@ -47,6 +47,8 @@ def run_subscription_mqtt():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
+    if config['MQTT']['ServerUser']:
+        client.username_pw_set(config['MQTT']['ServerUser'], config['MQTT']['ServerPassword'])
     client.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']))
     client.loop_forever()
 

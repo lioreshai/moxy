@@ -9,6 +9,8 @@ import paho.mqtt.client as mqtt
 
 #Initialize MQTT client for publishing metrics
 mqttc = mqtt.Client()
+if config['MQTT']['ServerUser']:
+    mqttc.username_pw_set(config['MQTT']['ServerUser'], config['MQTT']['ServerPassword'])
 mqttc.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']), int(config['MQTT']['KeepAlive']))
 mqttc.loop_start()
 

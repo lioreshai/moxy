@@ -62,6 +62,8 @@ def on_message(client, userdata, message):
 #Run mqtt connection for receiving meter update messages
 def run_mqtt():
     client = mqtt.Client()
+    if config['MQTT']['ServerUser']:
+        client.username_pw_set(config['MQTT']['ServerUser'], config['MQTT']['ServerPassword'])
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']))

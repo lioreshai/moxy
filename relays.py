@@ -53,6 +53,8 @@ def run_subscription_mqtt():
 #Deicated MQTT connection for sending liveness messages to Home Assistant
 def run_status_publish_mqtt():
     client = mqtt.Client()
+    if config['MQTT']['ServerUser']:
+        client.username_pw_set(config['MQTT']['ServerUser'], config['MQTT']['ServerPassword'])
     client.connect(config['MQTT']['ServerHost'], int(config['MQTT']['ServerPort']))
     print('Relay service connected to MQTT for switch status publishing') 
     while True:

@@ -1,4 +1,6 @@
 [MQTT]
 ServerHost = 127.0.0.1
+#ServerUser = user
+#ServerPassword = password
 ServerPort = 1883
 KeepAlive = 60
